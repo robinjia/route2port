@@ -1,0 +1,6 @@
+server_aliases: 
+  - mydomain.com
+server_admin: me@mydomain.com
+routes:
+  - [route1, 3000]
+  - [route2, 8000]

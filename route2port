@@ -1,0 +1,18 @@
+#!/bin/bash
+set -eu -o pipefail
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 [init|update]" 1>&2
+  exit 1
+fi
+mode="$1"
+conf_file='route2port.conf'
+echo "Compiling new apache .conf to ${conf_file}..."
+python3 compile.py config.yaml ${conf_file}
+echo "Compilation complete."
+sudo cp ${conf_file} /etc/apache2/sites-available
+cd /etc/apache2/sites-available
+if [ "$mode" == "init" ]; then
+  sudo a2ensite route2port.conf
+fi
+echo 'Running systemctl reload apache2...'
+sudo systemctl reload apache2
