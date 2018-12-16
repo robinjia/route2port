@@ -18,7 +18,7 @@ pip3 install -r requirements.txt
 
 3. Enable necessary apache modules:
 ```
-sudo a2enmod ssl proxy proxy_balancer proxy_http
+sudo a2enmod ssl proxy proxy_balancer proxy_html proxy_http rewrite
 ```
 
 ## Basic use

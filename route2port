@@ -5,14 +5,14 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 mode="$1"
-conf_file='route2port.conf'
-echo "Compiling new apache .conf to ${conf_file}..."
-python3 compile.py config.yaml ${conf_file}
+out_file='route2port.conf'
+echo "Compiling new apache .conf to ${out_file}..."
+python3 compile.py config.yaml ${out_file}
 echo "Compilation complete."
-sudo cp ${conf_file} /etc/apache2/sites-available
+sudo cp ${out_file} /etc/apache2/sites-available
 cd /etc/apache2/sites-available
-if [ "$mode" == "init" ]; then
-  sudo a2ensite route2port.conf
+if [ $mode == "init" ]; then
+  sudo a2ensite ${out_file}
 fi
 echo 'Running systemctl reload apache2...'
 sudo systemctl reload apache2
